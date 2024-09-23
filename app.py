@@ -5,7 +5,8 @@ import plotly.express as px
 df = pd.read_csv('ipl1.csv', low_memory=False, index_col=False)
 st.set_page_config(layout='wide', page_title='IPL Analysis')
 st.title('IPL Analysis by Milan Kulshrestha')
-
+df3=df.groupby(['batter','match_id'])['batsman_runs'].sum().reset_index()
+HS=df3[df3['batter']=='V Kohli'].sort_values(by='batsman_runs',ascending=False)['batsman_runs'].head(1).iloc[0]
 df1 = df[df['extras_type'] != 'wides']
 temp_df = df1.groupby(['batter', 'season']).agg({
     'batsman_runs': 'sum',
